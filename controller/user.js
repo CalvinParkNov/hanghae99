@@ -1,5 +1,6 @@
 const createError = require("http-errors");
 
+//회원 데이터 배열
 const user = [
   {
     id: 1,
@@ -13,11 +14,17 @@ exports.getAllUser = (req, res, next) => {
 };
 
 exports.createAccount = (req, res, next) => {
+  const reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{3,}$/;
+
   const { body } = req;
-  //회원가입
+  //회원가입 string이 아닐경우 입력오류를 전달
   if (typeof body.nickname !== "string") {
     return next(createError(422, "입력 오류"));
   }
+  if (!reg.test(body.password)) {
+    return next(createError(422, "입력오류"));
+  }
+
   const newUser = {
     id: user.length + 1,
     nickname: body.nickname,
