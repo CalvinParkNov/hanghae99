@@ -4,7 +4,7 @@ const app = express();
 const logger = require("morgan");
 const cookieParser = require("cookie-parser");
 const PORT = process.env.PORT;
-const route = require("./route/route");
+const route = require("./route");
 app.use(logger("dev"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
